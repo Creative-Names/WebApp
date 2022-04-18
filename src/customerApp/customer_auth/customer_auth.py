@@ -2,13 +2,12 @@ from flask import request, Blueprint, redirect, flash, Markup, render_template, 
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from models import db, User
+from models import db, User #type: ignore
 from sqlalchemy import exc
-from email_.email import Email
-from config import Config
-from utils import encrypt_file, decrypt_file
+from email_.email import Email #type: ignore
+from config import Config #type: ignore
+from utils import encrypt_file, decrypt_file #type: ignore
 
-#read from config
 HTTP_STATUS = Config.HTTP_STATUS
 SERVER_NAME = Config.SERVER_NAME
 
@@ -279,7 +278,6 @@ def verify_customer_rec_otp():
             return render_template('explorer_verifyOtp.html')
 
         if otps[rec_mail] == user_rec_otp:
-                print('hello')
                 user = User.query.filter_by(email=rec_mail, role='EMPLOYEE').first()
                 login_user(user)
                 return redirect(f'{HTTP_STATUS}explore.{SERVER_NAME}')
