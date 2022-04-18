@@ -1,0 +1,170 @@
+{% extends "explorer_base.html" %}
+{% block title %}
+Customer Home
+{% endblock title %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{%for message in messages%}
+{%if "Delete" in message%}
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+{%else%}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    {{message}}
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%endif%}
+{% endfor %}
+{%endif%}
+{%endwith%}
+
+{%if LoggedIn%}
+
+<div class="postboxbox">
+    {% if posts|length > 0 %}
+    <div class="heading" style="font-size: 30px; margin-bottom:20px">Postings just for you!</div>
+
+    {%for post in posts%}
+    <div class="postbox">
+        <div class="postbox-name">
+            <b style="color: rgb(153, 166, 176);">{{post.poster_name}}</b> • {{post.poster}} • <span
+                id="time{{loop.index}}">{{post.timestamp}}</span> • <span><b><a
+                        href="{{http_status}}explore.{{hostname}}?page=chats&chat={{post.poster}}">contact</a></b></span>
+
+                        
+            {%if post.isLiked %}
+            <form name="interested-form" action="{{http_status}}explore.{{hostname}}?page=home" method="POST"
+                style="display: inline;"><input type="hidden" name="interested" value="{{post.id}}" /><span
+                    onclick="likeordislike()" class="right"><img id="heart"
+                        src="https://raw.githubusercontent.com/SiddharthChopra28/Healthverse/fa8de800be371855d49c9517adbb87da06e1eb9b/favorite_white_24dp.svg"
+                        height="17px"></span></form>
+
+            {%else%}
+            <form name="interested-form" action="{{http_status}}explore.{{hostname}}?page=home" method="POST"
+            style="display: inline;"><input type="hidden" name="interested" value="{{post.id}}" /><span
+                onclick="likeordislike()" class="right"><img id="heart"
+                    src="https://raw.githubusercontent.com/SiddharthChopra28/Healthverse/fa8de800be371855d49c9517adbb87da06e1eb9b/favorite_border_white_24dp.svg"
+                    height="17px"></span></form>
+
+            {%endif%}
+        </div>
+        <div class="postbox-content" id="post{{post.id}}">
+            @@___!!!___@@{{post.content}}@@___!!!___@@
+        </div>
+    </div>
+
+    {%endfor%}
+
+
+    {%else%}
+
+    <div class="heading form">Nothing to show here, yet!</div>
+
+    {%endif%}
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js" crossorigin="anonymous"></script>
+
+<script>
+
+    function likeordislike(){
+        document.forms['interested-form'].submit(); 
+    }
+
+    function timeSince(date) {
+
+        var seconds = Math.floor((new Date() - date) / 1000);
+
+        var interval = seconds / 31536000;
+
+        if (interval > 1) {
+            return Math.floor(interval) + " year(s) ago";
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+            return Math.floor(interval) + " month(s) ago";
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+            return Math.floor(interval) + " day(s) ago";
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+            return Math.floor(interval) + " hour(s) ago";
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+            return Math.floor(interval) + " minute(s) ago";
+        }
+        return Math.floor(seconds) + " second(s) ago";
+    }
+
+    function str_to_date() {
+
+        len = parseInt("{{posts|length}}")
+        for (i = 1; i <= len; i++) {
+            var datespan = document.getElementById('time' + i);
+            var datestr = datespan.innerHTML
+
+            var dateTimeParts = datestr.split(' ');
+            var timeParts = dateTimeParts[1].split(':');
+            var dateParts = dateTimeParts[0].split('-');
+
+            var date = new Date(parseInt(dateParts[2]), parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1], timeParts[2]);
+            var dateAgo = timeSince(date)
+            datespan.innerHTML = dateAgo
+
+        }
+
+
+    }
+
+    function render_md() {
+        len = parseInt("{{posts|length}}")
+        var converter = new showdown.Converter();
+        for (i = 1; i <= len; i++) {
+            var post = document.getElementById('post' + i);
+            var details = post.innerHTML.split("@@___!!!___@@")
+            content = details[1]
+            post.innerHTML = converter.makeHtml(content);
+        }
+
+    }
+
+    render_md()
+    str_to_date()
+
+
+</script>
+
+{%else%}
+<div class="heading">Welcome! Please Login or Signup To proceed</div>
+{% endif %}
+
+</div>
+
+{% endblock content %}
+
+{% block AccountSettings %}
+{% if LoggedIn %}
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/update_details">Update Details</a></li>
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/logout">Logout</a></li>
+<li><a class="dropdown-item" href="?delete=True">Delete Account</a></li>
+
+{%else%}
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/login">Login</a></li>
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/register">Sign up</a></li>
+
+
+{% endif %}
+{% endblock AccountSettings%}

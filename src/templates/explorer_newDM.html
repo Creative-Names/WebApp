@@ -1,0 +1,80 @@
+{% extends "explorer_base.html" %}
+
+    
+{% block title %}
+New Direct Message
+{%endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{%for message in messages%}
+{%if "Delete" in message%}
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+{%else%}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    {{message}}
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%endif%}
+{% endfor %}
+{%endif%}
+{%endwith%}
+
+{% if LoggedIn %}
+
+<div class="center">
+    <h1 style="font-size: x-large; margin-bottom:10px;" class="heading">New Chat</h1>
+    <div class="form">
+
+        <form action="{{http_status}}explore.{{hostname}}?page=chat" method="GET">
+
+            <div class="space">
+                <p><span class="white">Enter email-id of the user to chat with</span></p>
+                <input type="email" id="email" name="chat" placeholder="Email"/>
+                <input type="hidden" name="page" value="chats" />
+
+            </div>
+            <br>
+            <div class="space">
+                <button type="submit" style="border-radius: 3px; margin-top:4px;">Submit</button>
+            </div>
+
+
+            
+        </form>
+    </div>
+</div>
+
+
+{%else%}
+<div class="heading">Welcome! Please Login or Signup To proceed</div>
+{% endif %}
+
+
+
+
+{% endblock %}
+
+
+
+{% block AccountSettings %}
+{% if LoggedIn %}
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/update_details">Update Details</a></li>
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/logout">Logout</a></li>
+<li><a class="dropdown-item" href="?delete=True">Delete Account</a></li>
+
+{%else%}
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/login">Login</a></li>
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/register">Sign up</a></li>
+
+
+{% endif %}
+{% endblock AccountSettings%}

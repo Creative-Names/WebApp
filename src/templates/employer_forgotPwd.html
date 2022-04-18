@@ -1,0 +1,65 @@
+
+{% extends "employer_base.html" %}
+
+{%block title %}
+Login-OTP
+{%endblock %}
+
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{%for message in messages%}
+{%if "success" in message%}
+<div class="alert alert-success alert-dismissible fade show space" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%else%}
+<div class="alert alert-danger alert-dismissible fade show space" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%endif%} {% endfor %} {%endif%} {%endwith%}
+
+
+<div class="center">
+    <h1 style="font-size: x-large; margin-bottom:10px;" class="heading">Recover Password</h1>
+    <div class="login" style="padding-left: 200px;">
+        <form action="{{http_status}}employer.{{hostname}}/forgotPwd" method="POST">
+            <div class="space">
+                <span class="white" style="font-size:19px;padding-bottom: 1px;">Enter Your Email</span><br>
+                <span class="white" style="font-size:12.5px; padding-right: 10px;">Enter Your email adress to login</span><br>
+                <input type="rec_email" id="email" name="rec_email" placeholder="Eg: some.company@somedomain.com" style="padding-left: 5px; height:30px; width: 70%;" required>
+            </div>
+            <div class="space d-grid gap-2 col-6 mx-5" style="padding-left: 35px; margin-top: 10px;">
+                <button type="submit" style="border-radius: 7px; margin-top:4px;" class="btn btn-outline-success">Continue</button>
+            </div>
+
+        </form>
+        
+    </div>
+    
+</div>
+
+
+
+
+{%endblock %}
+
+
+{% block AccountSettings %}
+{% if LoggedIn %}
+<li><a class="dropdown-item" href="{{http_status}}employer.{{hostname}}/update_details">Update Details</a></li>
+<li><a class="dropdown-item" href="{{http_status}}employer.{{hostname}}/logout">Logout</a></li>
+<li><a class="dropdown-item" href="?delete=True">Delete Account</a></li>
+
+{%else%}
+<li><a class="dropdown-item" href="{{http_status}}employer.{{hostname}}/login">Login</a></li>
+<li><a class="dropdown-item" href="{{http_status}}employer.{{hostname}}/register">Sign up</a></li>
+
+
+{% endif %}
+{% endblock AccountSettings%}
+

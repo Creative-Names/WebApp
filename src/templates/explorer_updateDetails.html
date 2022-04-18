@@ -1,0 +1,70 @@
+{% extends "employer_base.html" %}
+
+{%block title %}
+Update Your Details
+{%endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{%for message in messages%}
+{%if "success" in message%}
+<div class="alert alert-success alert-dismissible fade show space" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%else%}
+<div class="alert alert-danger alert-dismissible fade show space" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+{%endif%}
+{%endfor%}
+{%endif%}
+{%endwith%}
+
+<div class="center">
+    <h1 class="heading" style="font-size: x-large; margin-bottom:10px;">Update Details</h1>
+    <div class="login" style="padding-left: 200px;">
+
+
+        <form action="{{http_status}}explore.{{hostname}}/update_details" method="POST">
+
+            <div class="space" style="padding-bottom: 10px;">
+                <span class="white" style="font-size:19px;padding-bottom: 1px;">Enter your Business Name </span><br>
+                <span class="white" style="font-size:12.5px; padding-right: 10px;">Enter the name you want your postings to appear under</span><br>
+                <input type="text" placeholder="Eg: A cool comapny"  style="padding-left: 5px; height:30px; width: 70%;" value='{{username}}' id="uname" name="uname">
+            </div>
+            <div class="space">
+                <span class="white" style="font-size:19px;padding-bottom: 1px;">Company details </span><br>
+                <span class="white" style="font-size:12.5px; padding-right: 10px;">Give us a breif discription of what your comapny does</span><br>
+                <input type="text" placeholder="About your company" style="padding-left: 5px; height:30px; width: 70%;"  value='{{about}}' id="loc" name="loc">
+            </div>
+            <div class="space d-grid gap-2 col-6 mx-5" style="padding-left: 35px; margin-top: 5px;">
+                <button type="submit" style="border-radius: 7px; margin-top:4px;" class="btn btn-outline-success">Update Details</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+{%endblock%}
+
+
+
+{% block AccountSettings %}
+{% if LoggedIn %}
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/update_details">Update Details</a></li>
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/logout">Logout</a></li>
+<li><a class="dropdown-item" href="?delete=True">Delete Account</a></li>
+
+{%else%}
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/login">Login</a></li>
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/register">Sign up</a></li>
+
+
+{% endif %}
+{% endblock AccountSettings%}
+

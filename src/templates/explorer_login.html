@@ -1,0 +1,67 @@
+{% extends "explorer_base.html" %}
+
+{%block title %}
+Login as Explorer
+{%endblock %}
+
+{% block content %}
+
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{%for message in messages%}
+{%if "success" in message%}
+<div class="alert alert-success alert-dismissible fade show space" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%else%}
+<div class="alert alert-danger alert-dismissible fade show space" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%endif%} {% endfor %} {%endif%} {%endwith%}
+
+
+<div class="center">
+    <h1 style="font-size: x-large; margin-bottom:10px;" class="heading">Login as a Customer</h1>
+    <div class="login" style="padding-left: 200px;">
+        <form action="{{http_status}}explore.{{hostname}}/login" method="POST">
+            <div class="space" style="padding-bottom: 10px;">
+                <span class="white" style="font-size:19px;padding-bottom: 1px;">Enter your email </span><br>
+                <span class="white" style="font-size:12.5px; padding-right: 10px;">Enter your registered email. Not registered yet?</span><a href="{{http_status}}explore.{{hostname}}/register">Signup here!</a><br>
+                <input type="email" id="email" name="email" placeholder="Eg: user.name@somedomain.com" style="padding-left: 5px; height:30px; width: 70%;"/>
+            </div>
+            <div class="space" style="padding-bottom: 20px;">
+                <span class="white" style="font-size:19px;padding-bottom: 1px; padding-right: 10px;">Enter your password </span><br>
+                <span class="white" style="font-size:12.5px;padding-right: 10px;">Enter your registered email's password</span><a href="{{http_status}}explore.{{hostname}}/forgotPwd">Forgot it?</a><br>
+                <input type="password" id="password" name="password" placeholder="Eg: enter your own password" style="padding-left: 5px; height:30px; width: 70%;" />
+            </div>
+            <div class="space d-grid gap-2 col-6 mx-5" style="padding-left: 35px;">
+                <button type="submit" style="border-radius: 7px; margin-top:4px;" class="btn btn-outline-success">Log in</button>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+
+
+
+{%endblock %}
+
+
+{% block AccountSettings %}
+{% if LoggedIn %}
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/update_details">Update Details</a></li>
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/logout">Logout</a></li>
+<li><a class="dropdown-item" href="?delete=True">Delete Account</a></li>
+
+{%else%}
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/login">Login</a></li>
+<li><a class="dropdown-item" href="{{http_status}}explore.{{hostname}}/register">Sign up</a></li>
+
+
+{% endif %}
+{% endblock AccountSettings%}
+

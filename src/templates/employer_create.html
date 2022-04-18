@@ -1,0 +1,111 @@
+{% extends "employer_base.html" %}
+
+    
+{% block title %}
+    Create Posting
+{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{%for message in messages%}
+{%if "Delete" in message%}
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+{%else%}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    {{message}}
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%endif%}
+{% endfor %}
+{%endif%}
+{%endwith%}
+
+{% if LoggedIn %}
+
+
+
+<div class="center">
+    <h1 style="font-size: x-large; margin-bottom:10px;" class="heading">Create a New Posting...</h1>
+    <div class="posting">
+        <form action="{{http_status}}employer.{{hostname}}/?page=new" method="post">
+            <div class="space left" style="padding-bottom: 10px;">
+                <span class="white" style="font-size:25px;padding-bottom: 1px;">Posting Title </span><br>
+                <span class="white" style="font-size:12.5px;">Be specific and imagine you're telling your current posting to another person</span><br>
+                <input class = "p55" name="title" placeholder="Eg: Team manager, Sales manager" style="padding-left: 5px; height:30px" required></input> <!-- title-->
+            </div>
+            <div class="space left" >
+                <span class="white" style="font-size:25px;padding-bottom: 1px;">Posting Description </span><br>
+                <span class="white" style="font-size:12.5px;">Enter all the details of the posting, spare nothing. Hint: use <b>markdown</b> to beautify the text and add images</span><br>
+                <textarea class = "p55" placeholder="Enter details here" rows = "5" name="pcontent" required></textarea> <!-- description-->
+
+            </div>
+
+            <div class="space left">
+                <span class="white" style="font-size:25px;padding-bottom: 1px;">Estimated Salary </span><br>
+                <span class="white" style="font-size:12.5px;">Give an estimated range for the salary</span><br>
+                <input class = "p55" name="salary" style="padding-left: 5px; height:30px" placeholder="Eg: USD 6000-7000" required></input> <!-- salary-->
+
+            </div>
+
+            <div class="space left">
+                <span class="white" style="font-size:25px;padding-bottom: 1px;">Location </span><br>
+                <span class="white" style="font-size:12.5px;">Give the location of the posting, try to be <b>as precise as possible</b></span><br>
+                <input class = "p55" name="place" placeholder="Eg: Fremont, California, USA; or work from home" style="padding-left: 5px; height:30px" required></input> <!-- location-->
+            
+            <div class="space left">
+                <span class="white" style="font-size:25px;padding-bottom: 1px;">Candidates Required </span><br>
+                <span class="white" style="font-size:12.5px;">Mention the <b>maximum number</b> of vacancies</span><br>
+                <input class = "p55" name="no_people" type="number" placeholder="Eg: 57, 88" style="padding-left: 5px; height:30px" required></input> <!-- no people-->
+            </div>
+
+            <div class="space left">
+                <span class="white" style="font-size:25px;padding-bottom: 1px;">Contact Details </span><br>
+                <span class="white" style="font-size:12.5px;">Add your contact information for if someone wants to inquire about the posting</span><br>
+                <input class = "p55" name="contact" placeholder="Eg: email adress, phone number" style="padding-left: 5px; height:30px" required></input> <!--contact -->
+
+            </div>
+            <br>
+        <div class="space d-grid gap-2">
+            <button type="submit" style="border-radius: 3px; margin-top:4px;" class="btn btn-outline-success">
+                + Create Posting
+            </button>
+    
+        </div>
+        </form>
+
+    </div>
+</div>
+
+
+{%else%}
+    <div class="heading">Welcome! Please Login or Signup To proceed</div>
+{% endif %}
+
+
+
+{% endblock %}
+
+
+
+{% block AccountSettings %}
+    {% if LoggedIn %}
+    <li><a class="dropdown-item"  href="{{http_status}}employer.{{hostname}}/update_details">Update Details</a></li>
+    <li><a class="dropdown-item"  href="{{http_status}}employer.{{hostname}}/logout">Logout</a></li>
+    <li><a class="dropdown-item"  href="?delete=True">Delete Account</a></li>
+
+    {%else%}
+    <li><a class="dropdown-item"  href="{{http_status}}employer.{{hostname}}/login">Login</a></li>
+    <li><a class="dropdown-item"  href="{{http_status}}employer.{{hostname}}/register">Sign up</a></li>
+
+    
+    {% endif %}
+{% endblock AccountSettings%}
+

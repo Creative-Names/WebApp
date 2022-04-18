@@ -1,0 +1,165 @@
+{% extends "employer_base.html" %}
+
+    
+{% block title %}
+Recent Posts
+{%endblock %}
+
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{%for message in messages%}
+{%if "Delete" in message%}
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+{%else%}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    {{message}}
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%endif%}
+{% endfor %}
+{%endif%}
+{%endwith%}
+
+{% if LoggedIn %}
+
+
+<div class="postboxbox">
+    <div class="heading" style="font-size: 30px; margin-bottom:20px">Your recent posts</div>
+
+    {% if posts|length > 0 %}
+    {%for post in posts%}
+    <div class="postbox">
+        <div class="postbox-name">
+            <b style="color: rgb(153, 166, 176);">{{post.poster_name}}</b> • {{post.poster}} • <span
+                id="time{{loop.index}}">{{post.timestamp}}</span> • <span><b><a href="{{http_status}}employer.{{hostname}}?page=chats&chat={{post.poster}}">contact</a></b></span>
+            <form name = "del-form" id="form{{post.id}}" action="{{http_status}}employer.{{hostname}}?page=posts" method="POST" style="display: inline;"><input type = "hidden" name = "del" value = "{{post.id}}" /><span onclick = "func('{{post.id}}');" class="right"><img src="https://github.com/SiddharthChopra28/Healthverse/blob/main/dustbin.png?raw=true" alt="{{post.id}}" height="17px"></span></form>
+        </div>
+        <script>
+            function func(id) {
+                var x = confirm("Are you sure you want to delete this post?");
+                if (x) {
+                    document.getElementById("form"+id).submit();
+                }
+            }
+        </script>
+        <div class="postbox-content" id="post{{loop.index}}">
+            @@___!!!___@@{{post.content}}@@___!!!___@@
+        </div>
+    </div>
+
+    {%endfor%}
+
+
+    {%else%}
+
+    <div class="heading form" style="width: fit-content;">Once you start making posts, they will show up here.<br><a href="{{http_status}}employer.{{hostname}}?page=new" >+ Create new Post</a></div>
+
+    {%endif%}
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js" crossorigin="anonymous"></script>
+
+<script>
+
+    function timeSince(date) {
+
+        var seconds = Math.floor((new Date() - date) / 1000);
+
+        var interval = seconds / 31536000;
+
+        if (interval > 1) {
+            return Math.floor(interval) + " year(s) ago";
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+            return Math.floor(interval) + " month(s) ago";
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+            return Math.floor(interval) + " day(s) ago";
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+            return Math.floor(interval) + " hour(s) ago";
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+            return Math.floor(interval) + " minute(s) ago";
+        }
+        return Math.floor(seconds) + " second(s) ago";
+    }
+
+    function str_to_date() {
+
+        len = parseInt("{{posts|length}}")
+        for (i = 1; i <= len; i++) {
+            var datespan = document.getElementById('time' + i);
+            var datestr = datespan.innerHTML
+
+            var dateTimeParts = datestr.split(' ');
+            var timeParts = dateTimeParts[1].split(':');
+            var dateParts = dateTimeParts[0].split('-');
+
+            var date = new Date(parseInt(dateParts[2]), parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1], timeParts[2]);
+            var dateAgo = timeSince(date)
+            datespan.innerHTML = dateAgo
+
+        }
+
+
+    }
+
+    function render_md() {
+        len = parseInt("{{posts|length}}")
+        var converter = new showdown.Converter();
+        for (i = 1; i <= len; i++) {
+            var post = document.getElementById('post' + i);
+            var details = post.innerHTML.split("@@___!!!___@@")
+            content = details[1]
+            post.innerHTML = converter.makeHtml(content);
+        }
+
+    }
+
+    render_md()
+    str_to_date()
+
+
+</script>
+
+
+{%else%}
+<div class="heading">Welcome! Please Login or Signup To proceed</div>
+{% endif %}
+
+
+
+
+{% endblock %}
+
+
+
+{% block AccountSettings %}
+{% if LoggedIn %}
+<li><a class="dropdown-item" href="{{http_status}}employer.{{hostname}}/update_details">Update Details</a></li>
+<li><a class="dropdown-item" href="{{http_status}}employer.{{hostname}}/logout">Logout</a></li>
+<li><a class="dropdown-item" href="?delete=True">Delete Account</a></li>
+
+{%else%}
+<li><a class="dropdown-item" href="{{http_status}}employer.{{hostname}}/login">Login</a></li>
+<li><a class="dropdown-item" href="{{http_status}}employer.{{hostname}}/register">Sign up</a></li>
+
+
+{% endif %}
+{% endblock AccountSettings%}

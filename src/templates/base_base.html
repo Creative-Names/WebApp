@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+    <link href="{{http_status}}{{hostname}}/static/design.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://github.com/SiddharthChopra28/Healthverse/blob/main/creativeLogo.png?raw=true">
+
+    <title>{% block title %}{% endblock %}
+    </title>
+</head>
+
+<style>
+    html {
+        zoom: 90%;
+        height: 100%;
+        
+    }
+
+    body {
+        background-color: rgb(9, 35, 61);
+        height: 100%;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+    }
+
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+    #navbar-heading {
+        background-color: rgb(7, 29, 51);
+
+    }
+
+    .onepage .section {
+        box-sizing: border-box;
+        min-height: 100vh;
+        margin: 0;
+        padding: 1rem 2rem;
+    }
+
+    .onepage .section:nth-child(3n+1) {
+        color: #ffc7c7;
+        background-color: #1f3956; /* change color from here bawt */
+    }
+
+    .onepage .section:nth-child(3n+1) * {
+        color: #ffc7c7;
+        fill: #ffc7c7;
+    }
+
+    .onepage .section:nth-child(3n+2) {
+        color: #ffffff;
+        background-color: #191d37;
+    }
+
+    .onepage .section:nth-child(3n+2) * {
+        color: #f5f5f5;
+        fill: #6b3c8c;
+    }
+
+    .onepage .section:nth-child(3n+3) {
+        color: #cbffc7;
+        background-color: #141446;
+    }
+
+    .onepage .section:nth-child(3n+3) * {
+        color: #cbffc7;
+        fill: #cbffc7;
+    }
+
+    .onepage .main-nav {
+        position: fixed;
+        z-index: 4000;
+        display: table;
+        table-layout: fixed;
+        bottom: 0;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 40em) {
+        .onepage .main-nav {
+            width: 100%;
+        }
+    }
+
+    @media (min-width: 40em) {
+        .onepage .main-nav {
+            top: 0;
+            right: 0;
+        }
+    }
+
+    .onepage .main-nav a {
+        display: table-cell;
+        padding: 1rem;
+        color: #fefefe;
+        text-decoration: none;
+    }
+
+    .onepage .main-nav a.active {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+    html,
+    body {
+        box-sizing: border-box;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        color: #fefefe;
+        font-family: 'Open Sans', Arial;
+    }
+
+    .vertical {
+        display: table;
+        width: 100%;
+        height: 100%;
+    }
+
+    .vertical>* {
+        display: flex;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .main{
+        margin-top: 10%;
+        display: flex;
+        align-items: center;
+    }
+
+    .lc{
+        display: block;
+        margin-left: 15%;
+        max-width: 35%;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+
+    h1,
+    .h1 {
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        font-size: 3.2rem;
+    }
+
+    h2,
+    .h2 {
+        margin-top: 1.4rem;
+        margin-bottom: 0.7rem;
+        font-size: 2.8rem;
+    }
+
+    @media (max-width: 40em) {
+        p {
+            font-size: 6vmin;
+        }
+
+        h1,
+        .h1 {
+            font-size: 9.6vmin;
+        }
+
+        h2,
+        .h2 {
+            font-size: 7.6vmin;
+        }
+    }
+
+    .svg {
+        display: block;
+        margin: 5vh auto 0;
+        width: 100%;
+        height: 100%;
+        max-width: 30wh;
+        max-height: 30vh;
+    }
+
+
+    .navbar {
+        min-height: 8%;
+        border-bottom: 1px solid rgb(7, 29, 51);
+        position: fixed;
+        width: 100%;
+    }
+    
+    .sidebar {
+        width: 15%;
+        min-height: 92%;
+        background-color: rgb(7, 29, 51);
+        position: fixed;
+        bottom: 0;
+        left: 0px;
+        
+    }
+
+    .postboxbox{
+        width: 45%;
+        align-items: center;
+        padding: 8px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    input, textarea{
+        border-radius: 7px;
+        background-color : #d1dcf3; 
+        border: 0px;
+
+    }
+
+      
+    .submitbutton{
+        border:none;
+        background:#2a3942;
+        position:relative;
+        border-radius:5px;
+        color:#71DFBE;
+        font-weight:500;
+        overflow:hidden;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .submitbutton:hover{
+        background:#71DFBE;
+        color:#2B2D2F;
+    }
+      
+
+
+    #navbar-heading a {
+        color: rgb(180, 187, 200);
+    }
+
+    #dropdownMenu2 {
+        background-color: rgb(7, 29, 51);
+        padding: 0px;
+        border: none;
+        color: rgb(180, 187, 200);
+
+    }
+
+
+    .dropdown-menu {
+        margin-right: 13px;
+        color: rgb(180, 187, 200);
+        background-color: rgb(7, 29, 51);
+    }
+
+    .nav-link {
+        font-weight: 500;
+    }
+
+    .nav-brand {
+        font-weight: 650;
+    }
+
+    .bi {
+        margin-left: 8;
+        margin-right: 14px;
+        cursor: pointer;
+    }
+
+    .bi {
+        margin-left: 8;
+        margin-right: 14px;
+        cursor: pointer;
+    }
+
+    .table {
+        margin-top: 20px;
+        max-width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        border-color: rgb(150, 152, 143);
+        border-collapse: collapse;
+        background-color: rgb(7, 29, 51);
+    }
+
+    .table-div {
+        overflow-x: auto;
+        text-align: center;
+    }
+
+
+    #table-head {
+        font-family: 'Roboto', sans-serif;
+        font-weight: lighter;
+        background-color: rgb(7, 29, 51);
+    }
+
+    .form {
+        color: rgb(15, 15, 15);
+        border-radius: 15px;
+        text-align: center;
+        margin-top: 20px;
+        width: 45%;
+        background-color: rgb(7, 29, 51);
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px;
+    }
+
+    .posting {
+        color: rgb(15, 15, 15);
+        border-radius: 15px;
+        text-align: left;
+        margin-top: 20px;
+        width: 45%;
+        background-color: rgb(7, 29, 51);
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px;
+    }
+
+    .login {
+        color: rgb(15, 15, 15);
+        border-radius: 15px;
+        text-align: left;
+        margin-top: 20px;
+        width: 45%;
+        background-color: rgb(7, 29, 51);
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px;
+    }
+
+    .login a {
+        color: rgb(95, 101, 138);
+        text-decoration: none;
+    }
+
+    .login a:hover {
+        color: rgb(71, 65, 100);
+        text-decoration: underline;
+    }
+
+    .form a {
+        color: rgb(89, 206, 217);
+        text-decoration: none;
+    }
+
+    .posting a {
+        color: rgb(89, 206, 217);
+        text-decoration: none;
+    }
+
+    .space {
+        margin: 2px;
+    }
+
+    .uploadText {
+        cursor: pointer;
+        color: rgb(112, 38, 177);
+    }
+
+    .heading {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 20px;
+        font-family: 'Roboto', sans-serif;
+        color: rgb(180, 187, 200);
+    }
+
+    .alert {
+        text-align: center;
+        width: fit-content;
+        height: fit-content;
+        position: absolute;     
+        left: auto;
+        right: 10px;
+        top: 9%;
+    }
+
+    .bgImg {
+        /* background-image: url('http://localhost:9422/static/stemLogoText.png'); */
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 500px;
+        max-width: 100%;
+        margin-top: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0.4;
+    }
+
+    #file-chosen {
+        white-space: nowrap;
+    }
+
+    .abtn {
+        background: none;
+        border: none;
+        color: rgb(112, 38, 177);
+        padding-left: 0px;
+    }
+
+    .modal-body,
+    .modal-header,
+    .modal-footer,
+    .modal-content {
+        background-color: rgb(255, 255, 255);
+        border-color: rgb(0, 0, 0);
+    }
+
+    .imgselect {
+        display: flex;
+        overflow: auto;
+        margin-bottom: 15px;
+
+    }
+
+    .imgselect img {
+        border-radius: 10px;
+        margin: 5px;
+
+    }
+
+    #selectedImg {
+        border: 5px solid #555;
+    }
+
+
+    .side-head {
+        padding: 4%;
+        color: rgb(180, 187, 200);
+        font-size: 22px;
+        
+    }
+
+    .side-item {
+        padding: 3%;
+        padding-top: 2%;
+        padding-left: 10%;
+        color: rgb(180, 187, 200);
+        font-size: 17px;
+        
+    }
+
+    .maine{
+        display: flex;
+        height: 92%;
+    }
+
+    .content{
+        width: 100%;
+        padding-top: 5%;
+    }
+
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+
+    a:hover{
+        text-decoration: underline;
+        color: inherit;
+    }
+
+    .postbox{
+        padding: 8px;
+        border: 1px solid rgb(180, 187, 200);
+        border-radius: 5px;
+        margin-bottom: 20px;
+        background-color: #071d33;
+
+    }
+
+    .white{
+       color: rgb(180, 187, 200);
+    }
+
+
+    .postbox-content{
+        color: rgb(180, 187, 200);
+        font-size: 20px;
+        margin-left: 2%;
+    }
+
+    .postbox-name{
+        color: rgb(109, 117, 134);
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    .right{
+        float: right;
+        cursor: pointer;
+    }
+
+    .dmslist{
+        padding-left: 20%;
+        color: rgb(180, 187, 200);
+    }
+
+
+    #dmslist{
+        display: block;
+    }
+
+    .chatsbtn{
+        cursor: pointer;
+    }
+    .chatsbtn:hover{
+        text-decoration: underline;
+        color: inherit;
+    }
+
+
+    .dm{
+        margin-bottom: 5px;
+        display: block;
+        width: fit-content;
+        cursor: pointer;
+        max-width: 85%;
+        overflow-x: hidden;
+        white-space:nowrap;
+
+    }
+
+    .p55{
+        width: 100%;
+        border-radius: 3px;
+    }
+
+
+    .chatbox{
+        color: rgb(15, 15, 15);
+        border-radius: 15px;
+        text-align: center;
+        width: 50%;
+        background-color: rgb(7, 29, 51);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2%;
+        padding-left: 3%;
+        padding-right: 3%;
+        padding-top: 1%;
+        min-height: 85%;
+        height: 92%;
+
+    }
+
+    .msgbox{
+        top: 85%;
+        position: fixed;
+        width: 44%;
+        align-items: center;
+        
+    }
+
+    .msgsbox{
+        
+        margin-top: 20px;
+        height: 75%;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+    }
+
+    .msgsbox::-webkit-scrollbar {
+        display: none;
+    }
+
+    .msgin{
+        width: 70%;
+        margin-right: 5px;
+    }
+
+    .sent{
+        float: right;
+        color: rgb(180, 187, 200);
+        display: block;
+        padding: 10px;
+        background-color: #1f3956;
+        max-width: 60%;
+        overflow-x: hidden;
+        word-wrap: break-word;
+        text-align: left;
+        border-radius: 15px;
+        border-bottom-right-radius: 0px;
+    }
+
+    .recd{
+        float: left;
+        color: rgb(180, 187, 200);
+        display: block;
+        padding: 10px;
+        background-color: #1f3956;
+        max-width: 60%;
+        overflow-x: hidden;
+        word-wrap: break-word;
+        text-align: left;
+        border-radius: 15px;
+        border-bottom-left-radius: 0px;
+
+    }
+
+    .lb{
+        clear: both;
+        background-color: rgb(7, 29, 51);
+
+    }
+
+    #msgin{
+        background-color: #2a3942;
+        height: 40px;
+        width: 90%;
+        padding-left: 8px;
+        color: rgb(180, 187, 200);
+
+    }
+
+    #msgin:focus{
+        outline: none;
+    }
+
+    #sendMsg{
+        height: 40px;
+        width: 5%;
+    }
+
+    .centinfo{
+        color: rgb(180, 187, 200);
+        background-color: #021827;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 3%;
+        border-radius: 15px;
+        padding: 15px;
+    }
+
+</style>
+
+{%block body%}
+{%endblock%}
+
+
+</html>
