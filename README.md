@@ -14,7 +14,7 @@
 - Get personally tailored posting with out self-made AI 🤖
 - Easy to use GUI, with a modern look (now easy on the eyes!) 💻
 
-_Visit our site here: <link>_
+_Visit our site here: https://creativecorner.creativenom.repl.co/_
 
 ## Demo our app on your system
 
