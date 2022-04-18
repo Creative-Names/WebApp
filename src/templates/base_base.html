@@ -39,6 +39,7 @@
 
     #navbar-heading {
         background-color: rgb(7, 29, 51);
+        z-index: 2;
 
     }
 
@@ -51,7 +52,7 @@
 
     .onepage .section:nth-child(3n+1) {
         color: #ffc7c7;
-        background-color: #1f3956; /* change color from here bawt */
+        background-color: #1f3956;
     }
 
     .onepage .section:nth-child(3n+1) * {
@@ -62,10 +63,11 @@
     .onepage .section:nth-child(3n+2) {
         color: #ffffff;
         background-color: #191d37;
+        
     }
 
     .onepage .section:nth-child(3n+2) * {
-        color: #f5f5f5;
+        color: #aac4b0;
         fill: #6b3c8c;
     }
 
@@ -201,7 +203,7 @@
     }
     
     .sidebar {
-        width: 15%;
+        width: 13%;
         min-height: 92%;
         background-color: rgb(7, 29, 51);
         position: fixed;
@@ -256,12 +258,39 @@
         color: rgb(180, 187, 200);
 
     }
+    #dropdownMenu3 {
+        background-color: rgb(7, 29, 51);
+        padding: 0px;
+        border: none;
+        color: rgb(180, 187, 200);
+        margin-right: 8px;
+
+    }
+    #dropdownMenu3:hover {
+        background-color: rgb(7, 29, 51);
+        padding: 0px;
+        border: none;
+        color: rgb(180, 187, 200);
+        margin-right: 8px;
+
+    }
+
+
+    #lonerpost:hover{
+        background-color: inherit;
+        
+    }
 
 
     .dropdown-menu {
         margin-right: 13px;
         color: rgb(180, 187, 200);
-        background-color: rgb(7, 29, 51);
+        background-color: rgb(33, 35, 36);
+    }
+
+    .dropdown-item:focus, .dropdown-item:hover {
+        color: rgb(180, 187, 200);
+        background-color: rgb(42, 80, 117);
     }
 
     .nav-link {
@@ -502,13 +531,23 @@
 
     .right{
         float: right;
-        cursor: pointer;
     }
 
     .dmslist{
         padding-left: 20%;
         color: rgb(180, 187, 200);
     }
+
+    .pointer{
+        cursor: pointer;
+    }
+
+    .bg{
+        background-color: #061d33;
+        border: 1px solid rgb(180, 187, 200);
+    }
+
+
 
 
     #dmslist{
