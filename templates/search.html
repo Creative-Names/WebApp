@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{%block title %}
+Home
+{%endblock %}
+
+{% block content %}
+
+<div class="postboxbox">
+
+    {% if posts|length > 0 %}
+<div class="heading" style="font-size: 30px; margin-bottom:20px; margin-top:15%">Matching Posts</div>
+
+{%for post in posts %}
+
+<div class="postbox">
+    <div class="postbox-name">
+
+        <b style="color: rgb(153, 166, 176);">{{post.name}}</b> • {{post.poster}} • <span
+            id="time{{loop.index}}">{{post.timestamp}}</span> • <span><b><a
+                    href="{{http_status}}{{hostname}}/employer?page=chats&chat={{post.poster}}">contact</a></b></span>
+
+                    
+    </div>
+
+    <div class="postbox-content" id="post{{loop.index}}">
+        @@___!!!___@@{{post.content}}@@___!!!___@@
+    </div>
+
+</div>
+
+
+
+{%endfor%}
+
+{%else%}
+
+<div class="heading form" style="font-size: 30px; margin-top:15%">No matching posts found</div>
+
+
+
+{%endif%}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js" crossorigin="anonymous"></script>
+
+<script>
+
+    function timeSince(date) {
+
+        var seconds = Math.floor((new Date() - date) / 1000);
+
+        var interval = seconds / 31536000;
+
+        if (interval > 1) {
+            return Math.floor(interval) + " year(s) ago";
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+            return Math.floor(interval) + " month(s) ago";
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+            return Math.floor(interval) + " day(s) ago";
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+            return Math.floor(interval) + " hour(s) ago";
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+            return Math.floor(interval) + " minute(s) ago";
+        }
+        return Math.floor(seconds) + " second(s) ago";
+    }
+
+    function str_to_date() {
+
+        len = parseInt("{{posts|length}}")
+        for (i = 1; i <= len; i++) {
+            var datespan = document.getElementById('time' + i);
+            var datestr = datespan.innerHTML
+
+            var dateTimeParts = datestr.split(' ');
+            var timeParts = dateTimeParts[1].split(':');
+            var dateParts = dateTimeParts[0].split('-');
+
+            var date = new Date(parseInt(dateParts[2]), parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1], timeParts[2]);
+            var dateAgo = timeSince(date)
+            datespan.innerHTML = dateAgo
+
+        }
+
+
+    }
+
+    function render_md() {
+        len = parseInt("{{posts|length}}")
+        var converter = new showdown.Converter();
+        for (i = 1; i <= len; i++) {
+            var post = document.getElementById('post' + i);
+            var details = post.innerHTML.split("@@___!!!___@@")
+            content = details[1]
+            post.innerHTML = converter.makeHtml(content);
+        }
+
+    }
+
+    render_md()
+    str_to_date()
+
+
+</script>
+
+
+{%endblock content %}

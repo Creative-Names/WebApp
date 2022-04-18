@@ -1,0 +1,80 @@
+{% extends "employer_base.html" %}
+
+{%block title %}
+Verify Recovery OTP
+{%endblock %}
+
+
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{%for message in messages%}
+{%if "success" in message%}
+
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%else%}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%endif%}
+{% endfor %}
+{%endif%}
+{%endwith%}
+
+
+<div class="center">
+    <h1 class="heading" style="font-size: x-large; margin-bottom:10px;">Verify OTP</h1>
+    <div class="login" style="padding-left: 200px;">
+        <form action="{{http_status}}{{hostname}}/explore/forgotPwd/verify_otp" method="POST" id="form">
+            <div class="space">
+                <span class="white" style="font-size:19px;padding-bottom: 1px;">Enter OTP</span><br>
+                <span class="white" style="font-size:12.5px; padding-right: 10px;">An otp has been sent to your email id. Please enter it below.</span><br>
+                <input type="number" id="otp" name="otp" placeholder="Eg: 12xxx" style="padding-left: 5px; height:30px; width: 70%;" required>
+            </div>
+            <div class="space d-grid gap-2 col-6 mx-5" style="padding-left: 35px; margin-top: 10px;">
+                <button type="submit" style="border-radius: 7px; margin-top:4px;" class="btn btn-outline-success">Continue</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var email = url.searchParams.get("email");
+    alert('hello')
+    if (email) {
+        localStorage.setItem('email', email);
+
+        document.getElementById('form').action = "{{http_status}}{{hostname}}/explore/forgotPwd/verify_otp?email="+email;
+    }
+    else{
+
+        document.getElementById('form').action = "{{http_status}}{{hostname}}/explore/forgotPwd/verify_otp?email="+localStorage.getItem('email');
+    }
+
+</script>
+
+{%endblock%}
+
+{% block AccountSettings %}
+{% if LoggedIn %}
+<li><a class="dropdown-item" href="{{http_status}}{{hostname}}/explore/update_details">Update Details</a></li>
+<li><a class="dropdown-item" href="{{http_status}}{{hostname}}/explore/logout">Logout</a></li>
+<li><a class="dropdown-item" href="?delete=True">Delete Account</a></li>
+
+{%else%}
+<li><a class="dropdown-item" href="{{http_status}}{{hostname}}/explore/login">Login</a></li>
+<li><a class="dropdown-item" href="{{http_status}}{{hostname}}/explore/register">Sign up</a></li>
+
+
+{% endif %}
+{% endblock AccountSettings%}
+

@@ -1,0 +1,50 @@
+{%extends "base_base.html" %}
+
+{%block body%}
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" id="navbar-heading">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{http_status}}{{hostname}}">
+                <img src="https://github.com/SiddharthChopra28/Healthverse/blob/main/creativeLogo.png?raw=true" alt="stem logo" width="40" height="auto">
+            </a>
+            <a class="navbar-brand" href="{{http_status}}{{hostname}}">
+                <b style="font-size: larger;">Creative App</b>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{http_status}}{{hostname}}/explore">Explore Opportunities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{http_status}}{{hostname}}/employer">Post offers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{http_status}}{{hostname}}/faq">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{http_status}}{{hostname}}/contact">About Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex" action="{{http_status}}{{hostname}}/search" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query" style="background-color : #d1dcf3;">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                
+            </div>
+        </div>
+    </nav>
+
+    
+
+    {% block content %}
+    {% endblock %}
+ 
+</body>
+
+
+{%endblock%}
