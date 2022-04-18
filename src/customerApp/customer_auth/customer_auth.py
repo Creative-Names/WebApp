@@ -8,6 +8,7 @@ from email_.email import Email
 from config import Config
 from utils import encrypt_file, decrypt_file
 
+#read from config
 HTTP_STATUS = Config.HTTP_STATUS
 SERVER_NAME = Config.SERVER_NAME
 
