@@ -11,14 +11,14 @@
 
 - Work both 9-5 with part-time to earn extra money! 💰💰💰
 - Gain experience with our partners to excel in your feild! 👷
-- Get personally tailored posting with out self-made AI 🤖
+- Get personally tailored posting with our self-made AI 🤖
 - Easy to use GUI, with a modern look (now easy on the eyes!) 💻
 
 _Visit our site here: https://creativecorner.creativenom.repl.co/_
 
 ## Demo our app on your system
 
-> Our project runs on flask module on python. Download the source code install the dependencies and devDependencies
+> Our project runs on flask module on python. Download the source, code install the dependencies and devDependencies
 
 > Check the production environment
 ```sh
@@ -27,11 +27,11 @@ Python 3.9.7
 ```
 > Install the python dependencies
 ```python
-pip install flask flask_cors flask_login flask_socketio cryptography flask_sqlalchemy
+$ pip install flask flask_cors flask_login flask_socketio cryptography flask_sqlalchemy
 ```
 
 > Run the WebApp
 
 ```python
-python3 app.py
+$ python3 app.py
 ```
