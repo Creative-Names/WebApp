@@ -30,8 +30,8 @@
                         <a class="nav-link" href="{{http_status}}{{hostname}}/contact">About Us</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="background-color : #d1dcf3;">
+                <form class="d-flex" action="{{http_status}}{{hostname}}/search" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query" style="background-color : #d1dcf3;">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 
