@@ -1,8 +1,8 @@
 from flask import render_template, request, redirect, flash, Markup, Blueprint, url_for
 from flask_login import login_required, current_user, logout_user
-from models import User, db, Post, DM
-from employerApp.employer_auth.employer_auth import employer_auth_bp
-from config import Config
+from models import User, db, Post, DM #type: ignore
+from employerApp.employer_auth.employer_auth import employer_auth_bp #type: ignore
+from config import Config #type: ignore
 import datetime
 import ast
 
@@ -42,7 +42,7 @@ def constructMD(title, desc, place, salary, no_people, contact):
 
 - **Estimated Salary**: {salary}  
 - **Place of Work**: {place}  
-- **Slots Filled**: 0/{no_people}  
+- **Candidates Required**: {no_people}  
 - **Contact Information**: {contact}
 """
 
@@ -123,9 +123,12 @@ def home():
                     post.likes="[]"
 
                 likers_mails = ast.literal_eval(post.likes)
+                post.likers = []
+                
                 for i in likers_mails:
-                    User.query.filter_by(
-                    email=i, role='EMPLOYER').first()
+                    post.likers.append(User.query.filter_by(
+                    email=i).first())
+                    
                 
             return render_template('employer_recentPosts.html', posts=posts[::-1], dmmers=dmmers)
 
@@ -142,7 +145,19 @@ def home():
                 email = post.poster
                 post.poster_name = User.query.filter_by(
                     email=email, role='EMPLOYER').first().username
+                
+            if post.likes == "":
+                post.likes="[]"
+
+            likers_mails = ast.literal_eval(post.likes)
+            post.likers = []
+            
+            for i in likers_mails:
+                post.likers.append(User.query.filter_by(
+                email=i, role='EMPLOYER').first())
+                
             return render_template('employer_recentPosts.html', posts=posts[::-1], dmmers=dmmers)
+
 
         flash(Markup("Post deleted successfully"))
         posts = Post.query.filter_by(poster=current_user.email).all()
@@ -150,7 +165,19 @@ def home():
             email = post.poster
             post.poster_name = User.query.filter_by(
                 email=email, role='EMPLOYER').first().username
+            
+            if post.likes == "":
+                post.likes="[]"
+
+            likers_mails = ast.literal_eval(post.likes)
+            post.likers = []
+            
+            for i in likers_mails:
+                post.likers.append(User.query.filter_by(
+                email=i).first())
+            
         return render_template('employer_recentPosts.html', posts=posts[::-1], dmmers=dmmers)
+
 
     elif req_page == 'new':
         if request.method == "POST":
