@@ -18,7 +18,7 @@ _Visit our site here: https://creativecorner.creativenom.repl.co/_
 
 ## Demo our app on your system
 
-> Our project runs on flask module on python. Download the source, code install the dependencies and devDependencies
+> Our project runs on flask module on python. Download the source code & install the dependencies and devDependencies
 
 > Check the production environment
 ```sh
