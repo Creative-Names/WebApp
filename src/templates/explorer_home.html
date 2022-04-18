@@ -43,14 +43,14 @@ Customer Home
             {%if post.isLiked %}
             <form name="interested-form" action="{{http_status}}explore.{{hostname}}?page=home" method="POST"
                 style="display: inline;"><input type="hidden" name="interested" value="{{post.id}}" /><span
-                    onclick="likeordislike()" class="right"><img id="heart"
+                    onclick="likeordislike()" class="right pointer"><img id="heart"
                         src="https://raw.githubusercontent.com/SiddharthChopra28/Healthverse/fa8de800be371855d49c9517adbb87da06e1eb9b/favorite_white_24dp.svg"
                         height="17px"></span></form>
 
             {%else%}
             <form name="interested-form" action="{{http_status}}explore.{{hostname}}?page=home" method="POST"
             style="display: inline;"><input type="hidden" name="interested" value="{{post.id}}" /><span
-                onclick="likeordislike()" class="right"><img id="heart"
+                onclick="likeordislike()" class="right pointer"><img id="heart"
                     src="https://raw.githubusercontent.com/SiddharthChopra28/Healthverse/fa8de800be371855d49c9517adbb87da06e1eb9b/favorite_border_white_24dp.svg"
                     height="17px"></span></form>
 
@@ -79,6 +79,13 @@ Customer Home
 
     function likeordislike(){
         document.forms['interested-form'].submit(); 
+        if (document.getElementById("heart").src == "https://raw.githubusercontent.com/SiddharthChopra28/Healthverse/fa8de800be371855d49c9517adbb87da06e1eb9b/favorite_border_white_24dp.svg"){
+            document.getElementById("heart").src = "https://raw.githubusercontent.com/SiddharthChopra28/Healthverse/fa8de800be371855d49c9517adbb87da06e1eb9b/favorite_white_24dp.svg";
+        }
+        else{
+            document.getElementById("heart").src = "https://raw.githubusercontent.com/SiddharthChopra28/Healthverse/fa8de800be371855d49c9517adbb87da06e1eb9b/favorite_border_white_24dp.svg";
+        }
+
     }
 
     function timeSince(date) {
