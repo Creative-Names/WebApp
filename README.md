@@ -5,9 +5,9 @@
 ![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)
 
 #### Presenting the all new Creative Corner, _by the creative names_
-> Ever get bored of your daily 9-5? Well, we are here to save the day :D! With our innovation, you can work both your 9-5 and work part-time with our partners, with little efforts to help them in their projects.
+> Ever get bored of your daily 9-5? Well, we are here to save the day :D! With our innovation, you can work both your 9-5 and work part-time with our partners, with little efforts to help them in their projects for countless benifits!
 
-## Features we offer
+## Some of the features we offer
 
 - Work both 9-5 with part-time to earn extra money! 💰💰💰
 - Gain experience with our partners to excel in your feild! 👷
