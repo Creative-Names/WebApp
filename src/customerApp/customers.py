@@ -7,6 +7,7 @@ from config import Config
 import datetime
 import ast
 
+#read from config
 HTTP_STATUS = Config.HTTP_STATUS
 SERVER_NAME = Config.SERVER_NAME
 
