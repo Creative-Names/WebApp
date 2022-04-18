@@ -15,7 +15,6 @@ app.config.from_object('config.Config')
 CORS(app)
 
 lock = RLock()
-
 db.init_app(app)
 socketio = SocketIO(app)
 
