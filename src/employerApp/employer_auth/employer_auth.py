@@ -1,13 +1,12 @@
-from models import User
 from flask import request, Blueprint, redirect, flash, Markup, render_template, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from models import db
+from models import db, User #type: ignore
 from sqlalchemy import exc
-from email_.email import Email
-from config import Config 
-from utils import encrypt_file, decrypt_file
+from email_.email import Email #type: ignore
+from config import Config  #type: ignore
+from utils import encrypt_file, decrypt_file #type: ignore
  
 HTTP_STATUS = Config.HTTP_STATUS
 SERVER_NAME = Config.SERVER_NAME
