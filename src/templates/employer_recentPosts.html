@@ -33,16 +33,41 @@ Recent Posts
 
 
 <div class="postboxbox">
-    <div class="heading" style="font-size: 30px; margin-bottom:20px">Your recent posts</div>
 
     {% if posts|length > 0 %}
+    <div class="heading" style="font-size: 30px; margin-bottom:20px">Your recent posts</div>
+
     {%for post in posts%}
     <div class="postbox">
         <div class="postbox-name">
             <b style="color: rgb(153, 166, 176);">{{post.poster_name}}</b> • {{post.poster}} • <span
                 id="time{{loop.index}}">{{post.timestamp}}</span> • <span><b><a href="{{http_status}}employer.{{hostname}}?page=chats&chat={{post.poster}}">contact</a></b></span>
-            <form name = "del-form" id="form{{post.id}}" action="{{http_status}}employer.{{hostname}}?page=posts" method="POST" style="display: inline;"><input type = "hidden" name = "del" value = "{{post.id}}" /><span onclick = "func('{{post.id}}');" class="right"><img src="https://github.com/SiddharthChopra28/Healthverse/blob/main/dustbin.png?raw=true" alt="{{post.id}}" height="17px"></span></form>
-        </div>
+                <form name = "del-form" id="form{{post.id}}" action="{{http_status}}employer.{{hostname}}?page=posts" method="POST" style="display: inline;"><input type = "hidden" name = "del" value = "{{post.id}}" /><span onclick = "func('{{post.id}}');" class="right pointer"><img src="https://github.com/SiddharthChopra28/Healthverse/blob/main/dustbin.png?raw=true" alt="{{post.id}}" height="17px"></span></form>
+
+                <span class="dropdown right pointer">
+                    <button type="button" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false">
+
+                        <img src="https://raw.githubusercontent.com/SiddharthChopra28/Healthverse/c215c8c381dd62eeba58a8ec5d936d56d906859c/group_white_24dp.svg" alt="{{post.id}}" height="25px">
+
+                    </button>
+                    <ul class="dropdown-menu bg" aria-labelledby="dropdownMenu3">
+                        {% if post.likers|length > 0 %}
+                        
+                        {%for liker in post.likers %}
+
+                        <li><a class="dropdown-item white"  href="{{http_status}}employer.{{hostname}}?page=chats&chat={{liker.email}}">{{liker.username}}</a></li>
+                        {%endfor%}
+
+                        {%else%}
+                        <li><span id="lonerpost" class="dropdown-item white" style="cursor: default;">Interested users will show up here</li>
+                        {%endif%}
+                    </ul>
+                </span>
+    
+            
+
+        
+            </div>
         <script>
             function func(id) {
                 var x = confirm("Are you sure you want to delete this post?");
