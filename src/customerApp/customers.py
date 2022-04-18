@@ -1,13 +1,11 @@
-from hashlib import new
 from flask import render_template, request, redirect, flash, Markup, Blueprint, url_for
 from flask_login import login_required, current_user, logout_user
-from models import db, User, DM, Post
-from customerApp.customer_auth.customer_auth import customer_auth_bp
-from config import Config
+from models import db, User, DM, Post #type: ignore
+from customerApp.customer_auth.customer_auth import customer_auth_bp #type: ignore
+from config import Config #type: ignore
 import datetime
 import ast
 
-#read from config
 HTTP_STATUS = Config.HTTP_STATUS
 SERVER_NAME = Config.SERVER_NAME
 
