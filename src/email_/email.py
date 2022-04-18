@@ -1,7 +1,7 @@
 import smtplib  
 import ssl  
 import random  
-from utils import encrypt_file, decrypt_file
+from utils import encrypt_file, decrypt_file #type: ignore
 
 from config import Config
 SERVER_NAME = Config.SERVER_NAME
