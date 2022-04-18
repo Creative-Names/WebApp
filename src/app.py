@@ -1,14 +1,14 @@
-from flask import Flask, render_template, request
+from flask import Flask, redirect, render_template, request, url_for
 from flask_login import LoginManager, current_user
-from models import User, DM
-from models import db
+from models import User, DM, Post #type: ignore
+from models import db #type: ignore
 from flask_cors import CORS
 from flask_socketio import SocketIO #type: ignore
 from threading import RLock
 import datetime
 
-from employerApp.employer import employer_bp
-from customerApp.customers import customer_bp
+from employerApp.employer import employer_bp #type: ignore
+from customerApp.customers import customer_bp #type: ignore
 
 app = Flask(__name__, subdomain_matching=True)
 app.config.from_object('config.Config')
@@ -20,31 +20,6 @@ db.init_app(app)
 socketio = SocketIO(app)
 
 ids = {}
-
-'''
-#sitemap
-    employerApp
-        login etc
-        profile
-        post
-        dms, groups
-    
-    employeeApp
-        login etc
-        profile
-        dms, groups
-        
-#dms
-    dms_db
-        id
-        from
-        to
-        timestamp
-        content
-
-        
-'''
-
 
 
 
@@ -83,6 +58,25 @@ def main():
 @app.route('/faq', strict_slashes=False)
 def faq():
     return render_template("about.html")
+
+@app.route('/search', strict_slashes=False)
+def search():
+    try:
+        query = request.args['query']
+    except KeyError:
+        return redirect(url_for('main'))
+    if query == "":
+        return redirect(url_for('main'))
+    
+    s_posts = Post.query.filter(Post.content.contains(query)).all()
+    
+    for post in s_posts:
+        name = User.query.filter_by(email=post.poster).first()
+        post.name = name.username
+    
+    
+    return render_template("search.html", posts=s_posts)
+    
 
 
 @socketio.on('connect')
@@ -144,5 +138,6 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 
+
 if __name__ == '__main__':
-    socketio.run(app, debug=True, port=9422)
+    socketio.run(app, port=9422, debug=True)
